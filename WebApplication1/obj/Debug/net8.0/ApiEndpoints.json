@@ -1,14 +1,40 @@
 [
   {
-    "ContainingType": "WebApplication1.Controllers.PreLoginController",
-    "Method": "Login",
-    "RelativePath": "api/PreLogin/login",
+    "ContainingType": "WebApplication1.Controllers.PostLoginController",
+    "Method": "GetallUser",
+    "RelativePath": "api/PostLogin/getallusers",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Name",
+        "Name": "define",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[WebApplication1.Data.Entities.UserDetail, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PreLoginController",
+    "Method": "Login",
+    "RelativePath": "api/PreLogin/Login",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserName",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -34,7 +60,12 @@
         "IsRequired": false
       },
       {
-        "Name": "email",
+        "Name": "UserName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Location",
         "Type": "System.String",
         "IsRequired": false
       },

@@ -1,42 +1,40 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Data.DTO;
+
+using WebApplication1.CustomDBContenxt;
+using WebApplication1.Data.Entities;
+using WebApplication1.Services;
 namespace WebApplication1.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class PreLoginController:ControllerBase
     {
-       public static readonly Dictionary<string, string> dict = new Dictionary<string, string>();
+        public readonly  DbContextdetail dbContextdetail;
+        public readonly AuthService authService;
+        public PreLoginController(DbContextdetail dbContextdetail ,AuthService authService)
+        {
+            this.dbContextdetail = dbContextdetail;
+            this.authService = authService;
+        }
+       
         [HttpPost]
         [Route("register")]
-        public  IActionResult Register(string Name ,string email ,string Password)
+        public  IActionResult Register(string Name ,string UserName ,string Location ,string Password)
         {
-            var create_user = new UserDto
-            {
-                Name = Name,
-                Email = email,
-                Activity = Activity.Online
-            };
+            
+            var create_user = authService.Register(Name ,UserName ,Location ,Password);
 
-            dict[Name] = Password;
+     
             return Ok(create_user);
         }
 
         [HttpGet]
-        [Route("login")]
-
-        public IActionResult Login(string Name ,string Password)
+        [Route("Login")]
+        public IActionResult Login(string UserName ,string Password)
         {
-            if (dict.ContainsKey(Name))
-            {
-                if (dict[Name] == Password)
-                {
-                    return Ok("You are validated");
-                }
-
-            }
-            return BadRequest("Not validated");
+            var token = authService.Login(UserName ,Password);
+            return Ok(token);
         }
     }
 }
