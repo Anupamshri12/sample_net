@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy everything and restore dependencies
 COPY . ./
-RUN dotnet build newappbuild
+RUN dotnet build 
 
 # Build the app
 RUN dotnet publish -c Release -o out
