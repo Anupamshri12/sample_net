@@ -17,13 +17,14 @@ namespace WebApplication1.Services
            dbContextdetail = _dbContextdetail;
             _configuration = configuration;
         }
-        public UserDetail Register(string Name ,string UserName ,string Location ,string Password)
+        public UserDetail Register(string FirstName ,string LastName ,string UserName ,string Email ,string Password)
         {
             var new_user = new UserDetail()
             {
-                Name = Name,
+                FirstName = FirstName,
+                LastName = LastName,
                 UserName = UserName,
-                Location = Location,
+                Email = Email,
                 Date = DateTime.Now.ToString(),
                 Password = Password
             };
@@ -45,31 +46,12 @@ namespace WebApplication1.Services
                 var check_password = dbContextdetail.AuthUsers.FirstOrDefault(user=>user.UserName == UserName && user.HashedPassword == Password); 
                 if(check_password != null)
                 {
-                    string token = GeneratJWTToken(UserName);
-                    return token;
+                    return "Authenticated";
                 }
                
             }
             return "Not Validated";
         }
-        public string GeneratJWTToken(string UserName)
-        {
-            var claims = new List<Claim>
-            {
-                new (ClaimTypes.Name ,UserName)
-            };
-            var jwtToken = new JwtSecurityToken(
-                claims: claims,
-                notBefore: DateTime.Now,
-                expires: DateTime.Now.AddDays(5),
-                signingCredentials: new SigningCredentials(
-               new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(_configuration["SecretKey:jwtsecretkey"] ?? string.Empty)
-                    ),
-
-                SecurityAlgorithms.HmacSha256Signature
-            ));
-            return new JwtSecurityTokenHandler().WriteToken(jwtToken);
-        }
+        
     }
 }

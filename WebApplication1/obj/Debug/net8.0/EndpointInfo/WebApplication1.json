@@ -1,57 +1,10 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "CrudApi Secured",
-    "version": "v1"
+    "title": "WebApplication1",
+    "version": "1.0"
   },
   "paths": {
-    "/api/PostLogin/getallusers": {
-      "get": {
-        "tags": [
-          "PostLogin"
-        ],
-        "parameters": [
-          {
-            "name": "define",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UserDetail"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UserDetail"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UserDetail"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/PreLogin/register": {
       "post": {
         "tags": [
@@ -59,7 +12,14 @@
         ],
         "parameters": [
           {
-            "name": "Name",
+            "name": "FirstName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LastName",
             "in": "query",
             "schema": {
               "type": "string"
@@ -73,7 +33,7 @@
             }
           },
           {
-            "name": "Location",
+            "name": "Email",
             "in": "query",
             "schema": {
               "type": "string"
@@ -123,51 +83,5 @@
       }
     }
   },
-  "components": {
-    "schemas": {
-      "UserDetail": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "location": {
-            "type": "string",
-            "nullable": true
-          },
-          "date": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      }
-    },
-    "securitySchemes": {
-      "Bearer": {
-        "type": "apiKey",
-        "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-        "name": "Authorization",
-        "in": "header"
-      }
-    }
-  },
-  "security": [
-    {
-      "Bearer": [ ]
-    }
-  ]
+  "components": { }
 }

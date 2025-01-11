@@ -20,12 +20,10 @@ namespace WebApplication1.Controllers
        
         [HttpPost]
         [Route("register")]
-        public  IActionResult Register(string Name ,string UserName ,string Location ,string Password)
+        public  IActionResult Register(string FirstName ,string LastName ,string UserName ,string Email ,string Password)
         {
             
-            var create_user = authService.Register(Name ,UserName ,Location ,Password);
-
-     
+            var create_user = authService.Register(FirstName ,LastName ,UserName ,Email ,Password);
             return Ok(create_user);
         }
 
